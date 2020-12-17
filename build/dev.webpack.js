@@ -28,6 +28,8 @@ module.exports = {
       pages: path.resolve(__dirname, '../src/pages'),
       utils: path.resolve(__dirname, '../src/utils'),
       services: path.resolve(__dirname, '../src/services'),
+      constants: path.resolve(__dirname, '../src/constants'),
+      routes: path.resolve(__dirname, '../src/routes'),
     },
   },
   module: {
