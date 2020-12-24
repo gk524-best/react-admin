@@ -1,7 +1,7 @@
 /**
  * 设置组件Props属性
  */
-import { ComponentsProps } from '@material-ui/core/styles/props';
+import { ComponentsProps} from '@material-ui/core/styles/props';
 
 const props: ComponentsProps = {
   MuiButtonBase: {
@@ -12,4 +12,5 @@ const props: ComponentsProps = {
   }
 }
 
-export default props;
+export default props
+

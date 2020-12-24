@@ -1,9 +1,11 @@
+// 屏幕分辨率
 import {
-  Breakpoints,
-  Breakpoint,
+  Breakpoints
 } from '@material-ui/core/styles/createBreakpoints';
 
-const breakpoints: Breakpoints = {
+type BreakpointsType = Partial<Breakpoints>
+
+const breakpoints: BreakpointsType = {
   keys: ['xs', 'sm', 'md', 'lg', 'xl'],
   values: {
     xs: 0,
@@ -11,12 +13,7 @@ const breakpoints: Breakpoints = {
     md: 960,
     lg: 1280,
     xl: 1440,
-  },
-  up: (key: Breakpoint | number) => '',
-  down: (key: Breakpoint | number) => '',
-  between: (start: Breakpoint | number, end: Breakpoint | number) => '',
-  only: (key: Breakpoint) => '',
-  width: (key: Breakpoint) => 0,
+  }
 };
 
-export default breakpoints;
+export default breakpoints

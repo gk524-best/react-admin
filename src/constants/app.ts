@@ -6,4 +6,12 @@
  */
 export const APP_THEME_SET = 'APP_THEME_SET';
 
-export const APP_THEMES = {};
+export const APP_THEMES = {
+  DEFAULT: 'DEFAULT',
+  DARK: 'DARK',
+  LIGHT: 'LIGHT',
+  BLUE: 'BLUE',
+  INDIGO: 'INDIGO',
+  GREEN: 'GREEN'
+};
+
