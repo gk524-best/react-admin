@@ -6,7 +6,11 @@
  */
 export const APP_THEME_SET = 'APP_THEME_SET';
 
-export const APP_THEMES = {
+type ThemeType = 'DEFAULT' | 'DARK' | 'LIGHT' | 'BLUE' | 'INDIGO' | 'GREEN';
+
+export type ThemesType = Record<ThemeType, string>;
+
+export const APP_THEMES: ThemesType = {
   DEFAULT: 'DEFAULT',
   DARK: 'DARK',
   LIGHT: 'LIGHT',
