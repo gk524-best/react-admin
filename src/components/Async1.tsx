@@ -23,8 +23,7 @@ const asyncComponent = (
     }
 
     async componentDidMount() {
-      await sleep(process.env.NODE_ENV === 'development' ? 150 : 0);
-      console.log(importComponent());
+      await sleep(process.env.NODE_ENV === 'development' ? 250 : 0);
 
       const { default: component } = await importComponent();
       this.setState({

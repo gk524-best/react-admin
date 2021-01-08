@@ -3,7 +3,7 @@ import * as types from 'constants/app';
 import { APP_THEMES, ThemesType } from 'constants/app';
 import { AnyAction } from 'redux';
 
-export type InitialStateType = {
+export type InitialThemeStateType = {
   currentTheme: string
 }
 
@@ -11,16 +11,18 @@ const initialState = {
   currentTheme: APP_THEMES.DEFAULT
 }
 
-const setTheme = (state = initialState, actions: AnyAction) => {
+export default (state = initialState, actions: AnyAction) => {
   switch (actions.type) {
     case types.APP_THEME_SET:
       return {
         ...state,
         currentTheme: actions.payload
-      }
+      };
+    default:
+      return state
   }
 }
 
-export default combineReducers({
-  setTheme
-})
+// export default combineReducers({
+//   setTheme
+// })

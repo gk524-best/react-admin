@@ -3,7 +3,7 @@ import { rootReducer } from './reducers';
 import { createEpicMiddleware } from 'redux-observable';
 
 const composeEnhancers =
-  (window as any).__REDUX_DEVTOOLS_EXTENSION__ || compose;
+  (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const epicMiddleware = createEpicMiddleware();
 

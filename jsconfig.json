@@ -10,7 +10,8 @@
       "utils/*": ["./src/utils/*"],
       "services/*": ["./src/services/*"],
       "constants/*": ["./src/constants/*"],
-      "routes/*": ["./src/routes/*"]
+      "routes/*": ["./src/routes/*"],
+      "store/*": ["./src/store/*"]
     }
   },
   "include": ["src/**/*"],
