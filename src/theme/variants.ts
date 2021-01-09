@@ -1,19 +1,19 @@
-import merge from "deepmerge";
-import { Palette } from '@material-ui/core/styles/createPalette'
-import { green, grey, indigo, red } from "@material-ui/core/colors";
-import { APP_THEMES } from "constants/app";
+import merge from 'deepmerge';
+import { Palette } from '@material-ui/core/styles/createPalette';
+import { green, grey, indigo, red } from '@material-ui/core/colors';
+import { APP_THEMES } from 'constants/app';
 
 const customBlue: Record<number, string> = {
-  50: "#e9f0fb",
-  100: "#c8daf4",
-  200: "#a3c1ed",
-  300: "#7ea8e5",
-  400: "#6395e0",
-  500: "#4782da",
-  600: "#407ad6",
-  700: "#376fd0",
-  800: "#2f65cb",
-  900: "#2052c2 ",
+  50: '#e9f0fb',
+  100: '#c8daf4',
+  200: '#a3c1ed',
+  300: '#7ea8e5',
+  400: '#6395e0',
+  500: '#4782da',
+  600: '#407ad6',
+  700: '#376fd0',
+  800: '#2f65cb',
+  900: '#2052c2 ',
 };
 
 export type HeaderKey = 'color' | 'background' | 'search';
@@ -22,83 +22,90 @@ export type FooterKey = 'color' | 'background';
 
 export type SidebarKey = 'color' | 'background' | 'header' | 'footer' | 'badge';
 
-type VariantType = {
-  name: string,
-  palette: Partial<Palette>,
-  header: { [K in HeaderKey]?: Record<any, string | number> | number | string},
-  footer: { [K in FooterKey]?: Record<any, string | number> | number | string},
-  sidebar?: { [k in SidebarKey]?: Record<any, string | number> | number | string },
-}
+export type VariantType = {
+  name: string;
+  palette: Partial<Palette>;
+  header: { [K in HeaderKey]?: Record<any, string | number> | number | string };
+  footer: { [K in FooterKey]?: Record<any, string | number> | number | string };
+  sidebar?: {
+    [k in SidebarKey]?: Record<any, string | number> | number | string;
+  };
+};
 
 const defaultVariant: VariantType = {
-  name: APP_THEMES.DARK,
+  name: APP_THEMES.DEFAULT,
   palette: {
-    type: "dark",
+    type: 'light',
     primary: {
-      main: customBlue[600],
+      main: customBlue[700],
       light: '',
       dark: '',
-      contrastText: "#FFF",
+      contrastText: '#FFF',
+    },
+    secondary: {
+      main: customBlue[500],
+      light: '',
+      dark: '',
+      contrastText: '#FFF',
     },
     background: {
-      default: "#1B2635",
-      paper: "#233044",
+      default: '#F7F9FC',
+      paper: '#FFF',
     },
     text: {
-      primary: "rgba(255, 255, 255, 0.95)",
-      secondary: "rgba(255, 255, 255, 0.5)",
-      disabled: "rgba(0, 0, 0, 0.38)",
-      hint: "rgba(0, 0, 0, 0.38)"
+      primary: 'rgba(255, 255, 255, 0.95)',
+      secondary: 'rgba(255, 255, 255, 0.5)',
+      disabled: 'rgba(0, 0, 0, 0.38)',
+      hint: 'rgba(0, 0, 0, 0.38)',
     },
   },
   header: {
     color: grey[300],
-    background: "#1B2635",
+    background: '#1B2635',
     search: {
       color: grey[200],
     },
   },
   footer: {
     color: grey[300],
-    background: "#233044",
+    background: '#233044',
   },
-}
-
+};
 
 const darkVariant: VariantType = merge(defaultVariant, {
   name: APP_THEMES.DARK,
   palette: {
-    type: "dark",
+    type: 'dark',
     primary: {
       main: customBlue[600],
-      contrastText: "#FFF",
+      contrastText: '#FFF',
     },
     background: {
-      default: "#1B2635",
-      paper: "#233044",
+      default: '#1B2635',
+      paper: '#233044',
     },
     text: {
-      primary: "rgba(255, 255, 255, 0.95)",
-      secondary: "rgba(255, 255, 255, 0.5)",
+      primary: 'rgba(255, 255, 255, 0.95)',
+      secondary: 'rgba(255, 255, 255, 0.5)',
     },
   },
   header: {
     color: grey[300],
-    background: "#1B2635",
+    background: '#1B2635',
     search: {
       color: grey[200],
     },
   },
   footer: {
     color: grey[300],
-    background: "#233044",
+    background: '#233044',
   },
 });
 
 const lightVariant: VariantType = merge(defaultVariant, {
   name: APP_THEMES.LIGHT,
   palette: {
-    type: "light",
+    type: 'light',
   },
   header: {
     color: grey[200],
@@ -112,17 +119,17 @@ const lightVariant: VariantType = merge(defaultVariant, {
   },
   sidebar: {
     color: grey[900],
-    background: "#FFF",
+    background: '#FFF',
     header: {
-      color: "#FFF",
+      color: '#FFF',
       background: customBlue[800],
       brand: {
-        color: "#FFFFFF",
+        color: '#FFFFFF',
       },
     },
     footer: {
       color: grey[800],
-      background: "#F7F7F7",
+      background: '#F7F7F7',
       online: {
         background: green[500],
       },
@@ -133,28 +140,28 @@ const lightVariant: VariantType = merge(defaultVariant, {
 const blueVariant: VariantType = merge(defaultVariant, {
   name: APP_THEMES.BLUE,
   palette: {
-    type: "light",
+    type: 'light',
   },
   sidebar: {
-    color: "#FFF",
+    color: '#FFF',
     background: customBlue[700],
     header: {
-      color: "#FFF",
+      color: '#FFF',
       background: customBlue[800],
       brand: {
-        color: "#FFFFFF",
+        color: '#FFFFFF',
       },
     },
     footer: {
-      color: "#FFF",
+      color: '#FFF',
       background: customBlue[800],
       online: {
-        background: "#FFF",
+        background: '#FFF',
       },
     },
     badge: {
-      color: "#000",
-      background: "#FFF",
+      color: '#000',
+      background: '#FFF',
     },
   },
 });
@@ -164,11 +171,11 @@ const greenVariant: VariantType = merge(defaultVariant, {
   palette: {
     primary: {
       main: green[800],
-      contrastText: "#FFF",
+      contrastText: '#FFF',
     },
     secondary: {
       main: green[500],
-      contrastText: "#FFF",
+      contrastText: '#FFF',
     },
   },
   header: {
@@ -177,25 +184,25 @@ const greenVariant: VariantType = merge(defaultVariant, {
     },
   },
   sidebar: {
-    color: "#FFF",
+    color: '#FFF',
     background: green[700],
     header: {
-      color: "#FFF",
+      color: '#FFF',
       background: green[800],
       brand: {
-        color: "#FFFFFF",
+        color: '#FFFFFF',
       },
     },
     footer: {
-      color: "#FFF",
+      color: '#FFF',
       background: green[800],
       online: {
-        background: "#FFF",
+        background: '#FFF',
       },
     },
     badge: {
-      color: "#000",
-      background: "#FFF",
+      color: '#000',
+      background: '#FFF',
     },
   },
 });
@@ -205,11 +212,11 @@ const indigoVariant: VariantType = merge(defaultVariant, {
   palette: {
     primary: {
       main: indigo[600],
-      contrastText: "#FFF",
+      contrastText: '#FFF',
     },
     secondary: {
       main: indigo[400],
-      contrastText: "#FFF",
+      contrastText: '#FFF',
     },
   },
   header: {
@@ -218,25 +225,25 @@ const indigoVariant: VariantType = merge(defaultVariant, {
     },
   },
   sidebar: {
-    color: "#FFF",
+    color: '#FFF',
     background: indigo[700],
     header: {
-      color: "#FFF",
+      color: '#FFF',
       background: indigo[800],
       brand: {
-        color: "#FFFFFF",
+        color: '#FFFFFF',
       },
     },
     footer: {
-      color: "#FFF",
+      color: '#FFF',
       background: indigo[800],
       online: {
-        background: "#FFF",
+        background: '#FFF',
       },
     },
     badge: {
-      color: "#000",
-      background: "#FFF",
+      color: '#000',
+      background: '#FFF',
     },
   },
 });

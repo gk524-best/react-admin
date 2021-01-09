@@ -20,15 +20,15 @@ const createTheme = (name: string): Theme => {
       breakpoints: breakpoints,
       overrides: overrides,
       props: props,
-      typography: typography
+      typography: typography,
     },
     {
       name: themeConfig.name,
       header: themeConfig.header,
       footer: themeConfig.footer,
       sidebar: themeConfig.sidebar,
-    }
+    },
   );
 };
 
-export default createTheme
+export default createTheme;
