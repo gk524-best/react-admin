@@ -7,6 +7,7 @@ import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
 import Sidebar from 'components/Sidebar';
 import Header from 'components/Header';
 import Footer from 'components/Footer';
+import { RoutesType } from '@/routes';
 
 const drawerWidth = 258;
 
@@ -42,7 +43,7 @@ const MainContent = styled(Paper)`
 
 type LayoutType = {
   children: any;
-  routes: any;
+  routes: RoutesType[];
   width: Breakpoint;
 };
 
@@ -57,10 +58,19 @@ const Layout = ({ children, routes, width }: LayoutType) => {
     <Root>
       <Drawer>
         <Hidden mdUp implementation="js">
-          <Sidebar routes={routes} />
+          <Sidebar
+            routes={routes}
+            PaperProps={{ style: { width: drawerWidth } }}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+          />
         </Hidden>
         <Hidden smDown implementation="css">
-          <Sidebar routes={routes} />
+          <Sidebar
+            routes={routes}
+            PaperProps={{ style: { width: drawerWidth } }}
+          />
         </Hidden>
       </Drawer>
       <AppContent>
@@ -73,3 +83,5 @@ const Layout = ({ children, routes, width }: LayoutType) => {
     </Root>
   );
 };
+
+export default Layout;

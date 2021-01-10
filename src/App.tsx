@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { ThemeProvider } from 'styled-components';
+import { ThemeProvider, createGlobalStyle } from 'styled-components';
 import {
   StylesProvider,
   ThemeProvider as MuiThemeProvider,
