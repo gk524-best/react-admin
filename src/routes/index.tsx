@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from '@/layouts';
+import AuthLayout from '@/layouts/auth';
 import { sidebarRoutes } from './Routes';
+
+import async from 'components/Async1';
+
+const Page404 = async(() => import('../pages/auth/Page404'));
 
 export type RoutesType = {
   id: string;
@@ -49,11 +54,18 @@ const childrenRoutes = (Layout: any, routes: RoutesType[]) =>
     ) : null;
   });
 
-console.log(childrenRoutes(Layout, sidebarRoutes));
-
 const Routes = () => (
   <Router>
-    <Switch>{childrenRoutes(Layout, sidebarRoutes)}</Switch>
+    <Switch>
+      {childrenRoutes(Layout, sidebarRoutes)}
+      <Route
+        render={() => (
+          <AuthLayout>
+            <Page404 />
+          </AuthLayout>
+        )}
+      />
+    </Switch>
   </Router>
 );
 

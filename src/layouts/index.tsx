@@ -75,9 +75,7 @@ const Layout = ({ children, routes, width }: LayoutType) => {
       </Drawer>
       <AppContent>
         <Header onDrawerToggle={handleDrawerToggle} />
-        <MainContent p={isWidthUp('lg', width) ? 12 : 5}>
-          {children}
-        </MainContent>
+        <MainContent>{children}</MainContent>
         <Footer />
       </AppContent>
     </Root>
