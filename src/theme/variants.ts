@@ -46,11 +46,11 @@ const defaultVariant: VariantType = {
       main: customBlue[500],
       light: '',
       dark: '',
-      contrastText: '#FFF',
+      contrastText: '#000',
     },
     background: {
       default: '#F7F9FC',
-      paper: '#FFF',
+      paper: '#fff',
     },
     text: {
       primary: 'rgba(0, 0, 0, 0.87)',
