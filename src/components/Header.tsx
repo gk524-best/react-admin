@@ -18,6 +18,12 @@ const IconButton = styled(MuiIconButton)`
   }
 `;
 
+const AppBar = styled(MuiAppBar)`
+  background: ${(props) => props.theme.header.background};
+  color: ${(props) => props.theme.header.color};
+  box-shadow: none;
+`;
+
 type HeaderType = {
   onDrawerToggle:
     | ((event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void)
@@ -26,7 +32,7 @@ type HeaderType = {
 
 const HeaderComponent = ({ onDrawerToggle }: HeaderType) => (
   <React.Fragment>
-    <MuiAppBar position="sticky">
+    <AppBar position="sticky">
       <Toolbar>
         <Grid container alignItems="center">
           <Hidden mdUp>
@@ -45,7 +51,7 @@ const HeaderComponent = ({ onDrawerToggle }: HeaderType) => (
           </Grid>
         </Grid>
       </Toolbar>
-    </MuiAppBar>
+    </AppBar>
   </React.Fragment>
 );
 

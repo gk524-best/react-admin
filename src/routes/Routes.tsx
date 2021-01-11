@@ -9,6 +9,7 @@ const HomeRoutes = {};
 const authRoutes = {
   id: 'Auth',
   path: '/auth',
+  header: 'Home',
   children: [
     {
       path: '/auth/sign-in',

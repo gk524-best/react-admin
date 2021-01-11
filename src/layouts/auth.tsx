@@ -20,7 +20,7 @@ const Root = styled.div`
 `;
 
 type AuthChildrenType = {
-  children: undefined | React.ReactNode;
+  children: React.ReactNode;
 };
 
 const Auth = ({ children }: AuthChildrenType) => {

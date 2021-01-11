@@ -16,7 +16,7 @@ const customBlue: Record<number, string> = {
   900: '#2052c2 ',
 };
 
-export type HeaderKey = 'color' | 'background' | 'search';
+export type HeaderKey = 'color' | 'background' | 'search' | 'indicator';
 
 export type FooterKey = 'color' | 'background';
 
@@ -27,8 +27,8 @@ export type VariantType = {
   palette: Partial<Palette>;
   header: { [K in HeaderKey]?: Record<any, string | number> | number | string };
   footer: { [K in FooterKey]?: Record<any, string | number> | number | string };
-  sidebar?: {
-    [k in SidebarKey]?: Record<any, string | number> | number | string;
+  sidebar: {
+    [k in SidebarKey]?: Record<any, string | number> | number | string | object;
   };
 };
 
@@ -40,17 +40,17 @@ const defaultVariant: VariantType = {
       main: customBlue[700],
       light: '',
       dark: '',
-      contrastText: '#FFF',
+      contrastText: '#000',
     },
     secondary: {
       main: customBlue[500],
       light: '',
       dark: '',
-      contrastText: '#FFF',
+      contrastText: '#000',
     },
     background: {
       default: '#F7F9FC',
-      paper: '#FFF',
+      paper: '#000',
     },
     text: {
       primary: 'rgba(255, 255, 255, 0.95)',
@@ -60,15 +60,40 @@ const defaultVariant: VariantType = {
     },
   },
   header: {
-    color: grey[300],
-    background: '#1B2635',
+    color: grey[500],
+    background: '#FFF',
     search: {
-      color: grey[200],
+      color: grey[800],
+    },
+    indicator: {
+      background: customBlue[600],
     },
   },
   footer: {
-    color: grey[300],
+    color: grey[500],
+    background: '#FFF',
+  },
+  sidebar: {
+    color: grey[200],
     background: '#233044',
+    header: {
+      color: grey[200],
+      background: '#233044',
+      brand: {
+        color: customBlue[500],
+      },
+    },
+    footer: {
+      color: grey[200],
+      background: '#1E2A38',
+      online: {
+        background: green[500],
+      },
+    },
+    badge: {
+      color: '#FFF',
+      background: customBlue[500],
+    },
   },
 };
 

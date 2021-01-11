@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Layout from '@/layouts';
 import AuthLayout from '@/layouts/auth';
@@ -31,10 +31,10 @@ const childrenRoutes = (Layout: any, routes: RoutesType[]) =>
       children.map((element, index) => (
         <Route
           key={index}
-          path={path}
+          path={element.path}
           exact
           render={(props) => (
-            <Layout>
+            <Layout routes={routes}>
               <element.Component {...props} />
             </Layout>
           )}
@@ -46,7 +46,7 @@ const childrenRoutes = (Layout: any, routes: RoutesType[]) =>
         path={path}
         exact
         render={(props) => (
-          <Layout>
+          <Layout routes={routes}>
             <Component {...props} />
           </Layout>
         )}

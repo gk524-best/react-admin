@@ -14,11 +14,12 @@ import {
   Collapse,
   Typography,
 } from '@material-ui/core';
-import { Category, ExpandLess, ExpandMore } from '@material-ui/icons';
+import { ExpandLess, ExpandMore } from '@material-ui/icons';
 
 const Scrollbar = styled(PerfectScrollbar)`
   background-color: ${(props) => props.theme.sidebar.background};
   border-right: 1px solid rgba(0, 0, 0, 0.2);
+  height: 100%;
 `;
 
 const List = styled(MuiList)`
@@ -26,13 +27,21 @@ const List = styled(MuiList)`
 `;
 
 const Link = styled(MuiListItem)`
-  padding-top: ${(props) => props.theme.spacing(3)}px;
-  padding-bottom: ${(props) => props.theme.spacing(3)}px;
-  padding-left: ${(props) => props.theme.spacing(8)}px;
-  padding-right: ${(props) => props.theme.spacing(7)}px;
-  font-weight: ${(props) => props.theme.typography.fontWeightRegular};
+  padding-left: ${(props) => props.theme.spacing(15)}px;
+  padding-top: ${(props) => props.theme.spacing(2)}px;
+  padding-bottom: ${(props) => props.theme.spacing(2)}px;
+
+  span {
+    color: ${(props) => rgba(props.theme.sidebar.color, 0.7)};
+  }
+
+  &:hover span {
+    color: ${(props) => rgba(props.theme.sidebar.color, 0.9)};
+  }
+
   &:hover {
-    background: rgba(0, 0, 0, 0.08);
+    background-color: ${(props) =>
+      darken(0.015, props.theme.sidebar.background)};
   }
 
   &.${(props) => props.activeClassName} {
@@ -82,6 +91,35 @@ const LinkText = styled(ListItemText)`
   margin-bottom: 0;
 `;
 
+const Category = styled(MuiListItem)`
+  padding-top: ${(props) => props.theme.spacing(3)}px;
+  padding-bottom: ${(props) => props.theme.spacing(3)}px;
+  padding-left: ${(props) => props.theme.spacing(8)}px;
+  padding-right: ${(props) => props.theme.spacing(7)}px;
+  font-weight: ${(props) => props.theme.typography.fontWeightRegular};
+
+  svg {
+    color: ${(props) => props.theme.sidebar.color};
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    opacity: 0.5;
+  }
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.08);
+  }
+
+  &.${(props) => props.activeClassName} {
+    background-color: ${(props) =>
+      darken(0.03, props.theme.sidebar.background)};
+
+    span {
+      color: ${(props) => props.theme.sidebar.color};
+    }
+  }
+`;
+
 const CategoryText = styled(ListItemText)`
   margin: 0;
   span {
@@ -114,7 +152,6 @@ const SidebarCategory = ({
   classes,
   isOpen,
   isCollapsable,
-  badge,
   ...rest
 }) => {
   return (
@@ -152,6 +189,10 @@ const Sidebar = ({ routes, classes, staticContext, location, ...rest }) => {
     const pathName = location.pathname;
 
     let _routes = {};
+
+    console.log(location, staticContext);
+
+    console.log(routes);
 
     routes.forEach((route, index) => {
       const isActive = pathName.indexOf(route.path) === 0;
@@ -192,11 +233,11 @@ const Sidebar = ({ routes, classes, staticContext, location, ...rest }) => {
         <List disablePadding>
           <ListWrapper>
             {routes.map((category, index) => (
-              <React.Fragment>
+              <React.Fragment key={index}>
                 {category.header ? (
                   <SidebarSection>{category.header}</SidebarSection>
                 ) : null}
-                {category.childern && category.icon ? (
+                {category.children ? (
                   <React.Fragment key={index}>
                     <SidebarCategory
                       isOpen={!openRoutes[index]}
@@ -204,21 +245,21 @@ const Sidebar = ({ routes, classes, staticContext, location, ...rest }) => {
                       name={category.id}
                       button={true}
                       onClick={() => toggle(index)}
-                      icon={category.icon}>
-                      <Collapse
-                        in={openRoutes[index]}
-                        timeout="auto"
-                        unmountOnExit>
-                        {category.childern.map((route, index) => (
-                          <SidebarLink
-                            key={index}
-                            name={route.name}
-                            to={route.path}
-                            icon={route.icon}
-                          />
-                        ))}
-                      </Collapse>
-                    </SidebarCategory>
+                      icon={category.icon}
+                    />
+                    <Collapse
+                      in={Boolean(openRoutes[index])}
+                      timeout="auto"
+                      unmountOnExit>
+                      {category.children.map((route, index) => (
+                        <SidebarLink
+                          key={index}
+                          name={route.name}
+                          to={route.path}
+                          icon={route.icon}
+                        />
+                      ))}
+                    </Collapse>
                   </React.Fragment>
                 ) : category.icon ? (
                   <SidebarCategory

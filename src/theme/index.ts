@@ -27,6 +27,7 @@ const createTheme = (name: string): Theme => {
       header: themeConfig.header,
       footer: themeConfig.footer,
       sidebar: themeConfig.sidebar,
+      palette: themeConfig.palette,
     },
   );
 };

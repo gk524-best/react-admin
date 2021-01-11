@@ -19,7 +19,7 @@ const Wrapper = styled.div`
   }
 `;
 
-function Page404() {
+const Page404: React.ReactNode = () => {
   return (
     <Wrapper>
       <Helmet title="404 Error" />
@@ -43,6 +43,6 @@ function Page404() {
       </Button>
     </Wrapper>
   );
-}
+};
 
 export default Page404;
