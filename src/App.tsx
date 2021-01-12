@@ -12,7 +12,7 @@ import { create } from 'jss';
 
 import Routes from 'routes/index';
 import createTheme from './theme';
-import { InitialThemeStateType } from 'store/reducers/themeReducer';
+import { ThemeStateType } from 'store/reducers/themeReducer';
 
 const jssHtml = document.getElementById('jss-insertion-point') ?? undefined;
 const jss = create({
@@ -21,7 +21,7 @@ const jss = create({
 });
 
 function App() {
-  const theme: InitialThemeStateType = useSelector(
+  const theme: ThemeStateType = useSelector(
     (state: any) => state.themeReducer,
   );
 

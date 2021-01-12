@@ -1,6 +1,13 @@
 import { combineReducers } from 'redux';
-import themeReducer from './themeReducer';
+import themeReducer, { ThemeStateType } from './themeReducer';
+import authReducer, { AuthStateType } from './authReducer';
+
+export type ReduxStateType = {
+  authReducer: AuthStateType;
+  themeReducer: ThemeStateType;
+};
 
 export const rootReducer = combineReducers({
-  themeReducer
-})
+  themeReducer,
+  authReducer,
+});

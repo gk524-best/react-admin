@@ -39,22 +39,22 @@ const defaultVariant: VariantType = {
     primary: {
       main: customBlue[700],
       light: '',
-      dark: '',
-      contrastText: '#000',
+      dark: 'rgb(38, 77, 145)',
+      contrastText: '#FFF',
     },
     secondary: {
       main: customBlue[500],
       light: '',
       dark: '',
-      contrastText: '#000',
+      contrastText: '#FFF',
     },
     background: {
       default: '#F7F9FC',
-      paper: '#000',
+      paper: '#FFF',
     },
     text: {
-      primary: 'rgba(255, 255, 255, 0.95)',
-      secondary: 'rgba(255, 255, 255, 0.5)',
+      primary: 'rgba(0, 0, 0, 0.87)',
+      secondary: 'rgba(0, 0, 0, 0.54)',
       disabled: 'rgba(0, 0, 0, 0.38)',
       hint: 'rgba(0, 0, 0, 0.38)',
     },

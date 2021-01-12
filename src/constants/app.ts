@@ -16,6 +16,7 @@ export const APP_THEMES: ThemesType = {
   LIGHT: 'LIGHT',
   BLUE: 'BLUE',
   INDIGO: 'INDIGO',
-  GREEN: 'GREEN'
+  GREEN: 'GREEN',
 };
 
+export const SET_LOGIN_STATE = 'SET_LOGIN_STATE';

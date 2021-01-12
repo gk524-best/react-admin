@@ -6,7 +6,7 @@ const Login = async(() => import('../pages/Login'));
 
 const HomeRoutes = {};
 
-const authRoutes = {
+const LoginRoutes = {
   id: 'Auth',
   path: '/auth',
   header: 'Home',
@@ -31,4 +31,6 @@ const pagesRoutes = {
   ],
 };
 
-export const sidebarRoutes = [authRoutes, pagesRoutes];
+export const sidebarRoutes = [pagesRoutes];
+
+export const authRoutes = [LoginRoutes];

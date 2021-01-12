@@ -1,12 +1,20 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 import Layout from '@/layouts';
 import AuthLayout from '@/layouts/auth';
-import { sidebarRoutes } from './Routes';
+import { sidebarRoutes, authRoutes } from './Routes';
+import { connect } from 'react-redux';
+import { ReduxStateType } from 'store/reducers/index';
 
 import async from 'components/Async1';
 
 const Page404 = async(() => import('../pages/auth/Page404'));
+const Login = async(() => import('../pages/Login'));
 
 export type RoutesType = {
   id: string;
@@ -54,19 +62,41 @@ const childrenRoutes = (Layout: any, routes: RoutesType[]) =>
     ) : null;
   });
 
-const Routes = () => (
-  <Router>
-    <Switch>
-      {childrenRoutes(Layout, sidebarRoutes)}
-      <Route
-        render={() => (
-          <AuthLayout>
-            <Page404 />
-          </AuthLayout>
-        )}
-      />
-    </Switch>
-  </Router>
-);
+type RoutesProps = {
+  isLogin?: boolean;
+};
 
-export default Routes;
+const Routes = (props: RoutesProps) => {
+  const { isLogin } = props;
+  return (
+    <Router>
+      <Switch>
+        {childrenRoutes(AuthLayout, authRoutes)}
+        {isLogin ? (
+          childrenRoutes(Layout, sidebarRoutes)
+        ) : (
+          <Redirect
+            to={{
+              pathname: '/auth/sign-in',
+            }}
+          />
+        )}
+        <Route
+          render={() => (
+            <AuthLayout>
+              <Page404 />
+            </AuthLayout>
+          )}
+        />
+      </Switch>
+    </Router>
+  );
+};
+
+const mapStateToProps = (state: ReduxStateType) => {
+  return {
+    isLogin: state.authReducer.isLogin,
+  };
+};
+
+export default connect(mapStateToProps, null)(Routes);

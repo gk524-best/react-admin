@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import { from } from 'rxjs';
 
 // axios 实例
@@ -15,3 +15,13 @@ instance.interceptors.request.use(
     return;
   },
 );
+
+instance.interceptors.response.use(
+  (res) => {
+    return res;
+  },
+  (err) => {
+    return;
+  }
+)
+
