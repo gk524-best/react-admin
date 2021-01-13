@@ -1,27 +1,12 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import { from } from 'rxjs';
+import { ajax, AjaxRequest, AjaxResponse } from 'rxjs/ajax';
 
-// axios 实例
-const instance = axios.create({
-  baseURL: '',
-  timeout: 100000,
-});
-
-instance.interceptors.request.use(
-  (config) => {
-    return config;
-  },
-  (err) => {
-    return;
-  },
-);
-
-instance.interceptors.response.use(
-  (res) => {
-    return res;
-  },
-  (err) => {
-    return;
+type OptionsType = {
+  getway?: string;
+  headers?: object;
+  
+}
+export class Request {
+  constructor() {
+    const baseUrl = 
   }
-)
-
+}
