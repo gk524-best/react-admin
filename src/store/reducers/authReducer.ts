@@ -2,11 +2,11 @@ import * as types from 'constants/app';
 import { AnyAction } from 'redux';
 
 export type AuthStateType = {
-  isLogin: boolean
-}
+  isLogin: boolean;
+};
 
 const initialAuthState = {
-  isLogin: false,
+  isLogin: true,
 };
 
 export default (state = initialAuthState, action: AnyAction) => {

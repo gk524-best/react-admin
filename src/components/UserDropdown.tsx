@@ -36,6 +36,7 @@ function UserDropdown() {
     <React.Fragment>
       <Tooltip title="个人中心">
         <IconButton
+          aria-controls="acount-menu"
           aria-owns={Boolean(auchorMenu) ? 'menu-appbar' : undefined}
           aria-haspopup="true"
           onClick={toggleMenu}
@@ -43,8 +44,12 @@ function UserDropdown() {
           <Power />
         </IconButton>
       </Tooltip>
-
-      <Menu id="acount-menu" open={Boolean(auchorMenu)} onClose={closeMenu}>
+      <Menu
+        id="acount-menu"
+        anchorEl={auchorMenu}
+        keepMounted
+        open={Boolean(auchorMenu)}
+        onClose={closeMenu}>
         <MenuItem onClick={linkToAccount}>个人中心</MenuItem>
         <MenuItem onClick={handleSignOut}>退出登陆</MenuItem>
       </Menu>
