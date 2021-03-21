@@ -17,13 +17,13 @@ const Page404 = async(() => import('../pages/auth/Page404'));
 const Login = async(() => import('../pages/Login'));
 
 export type RoutesType = {
-  id: string;
+  name: string;
   path: string;
   Component?: React.ElementType | null;
   icon?: React.ElementType;
   header?: string;
   containsHome?: boolean;
-  children?: RouteItemType[] | null;
+  children?: RoutesType[] | null;
 };
 
 export type RouteItemType = {

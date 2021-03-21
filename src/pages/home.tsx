@@ -1,6 +1,10 @@
 import React from 'react';
+import Breadcrumb from 'components/Breadcrumb';
 const Home = (): React.ReactNode => {
-  return <h1>Home</h1>;
+  return <>
+    <Breadcrumb />
+    <h1>Home</h1>
+  </>;
 };
 
 export default Home;
