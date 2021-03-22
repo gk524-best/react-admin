@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
+import Breadcrumbs from './Breadcrumbs';
 
-const PageWrapper: React.FC<{}> = () => {
-  return <div></div>;
+interface IProps {
+  breadcrumb: boolean;
+  children: ReactNode[],
+  
+}
+
+const PageWrapper: React.FC<IProps> = ({ breadcrumb = false, children }) => {
+  return (
+    
+  )
 };
 
 export default PageWrapper;

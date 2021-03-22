@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Breadcrumbs, Link, Typography } from '@material-ui/core';
 import { useLocation } from 'react-router-dom';
 import { sidebarRoutes as routes } from 'routes/Routes';
@@ -32,12 +32,15 @@ const generatePaths = (pathname: string): Array<string> => {
   return paths;
 };
 
+/**
+ * 根据路径匹配组成对应的路径名称
+ */
 let index = 0;
-const breadcrumbs: Array<BreadcrumbItemType> = new Array();
+const temp: Array<BreadcrumbItemType> = new Array();
 function generateRouteNames(routes: Array<RoutesType>, paths: Array<string>) {
   routes.forEach((item) => {
     if (item.path === paths[index]) {
-      breadcrumbs[index] = {
+      temp[index] = {
         name: item.name,
         path: item.path,
       };
@@ -49,12 +52,17 @@ function generateRouteNames(routes: Array<RoutesType>, paths: Array<string>) {
   });
 }
 
-const Breadcrumb: React.FC<{}> = () => {
+const Breadcrumbs: React.FC<{}> = () => {
+  const [breadcrumbs, setBreadcrumbs] = useState<Array<BreadcrumbItemType>>([]);
   const location = useLocation();
-  const paths: Array<string> = generatePaths(location.pathname);
-  generateRouteNames(routes, paths);
-  breadcrumbs.unshift({ name: '首页', path: '/' });
-  console.log(breadcrumbs);
+
+  useEffect(() => {
+    const paths: Array<string> = generatePaths(location.pathname);
+    generateRouteNames(routes, paths);
+    const home = [{ name: '首页', path: '/' }];
+    const b = home.concat(temp);
+    setBreadcrumbs(b)
+  }, [])
 
   return (
     <Breadcrumbs aria-label="breadcrumb">
@@ -85,4 +93,4 @@ const Breadcrumb: React.FC<{}> = () => {
   );
 };
 
-export default Breadcrumb;
+export default Breadcrumbs;
