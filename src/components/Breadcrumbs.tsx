@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Breadcrumbs, Link, Typography } from '@material-ui/core';
+import { Breadcrumbs as Bread, Link, Typography } from '@material-ui/core';
 import { useLocation } from 'react-router-dom';
 import { sidebarRoutes as routes } from 'routes/Routes';
 import { RoutesType } from 'routes/index';
@@ -65,7 +65,7 @@ const Breadcrumbs: React.FC<{}> = () => {
   }, [])
 
   return (
-    <Breadcrumbs aria-label="breadcrumb">
+    <Bread aria-label="breadcrumb">
       {breadcrumbs.map((item, index) => {
         if (index === 0) {
           return (
@@ -89,7 +89,7 @@ const Breadcrumbs: React.FC<{}> = () => {
           }
         }
       })}
-    </Breadcrumbs>
+    </Bread>
   );
 };
 
