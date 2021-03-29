@@ -21,7 +21,7 @@ const IconButton = styled(MuiIconButton)`
 const AppBar = styled(MuiAppBar)`
   background: ${(props) => props.theme.header.background};
   color: ${(props) => props.theme.header.color};
-  box-shadow: none;
+  box-shadow: 0 1px 4px rgb(0 21 41 / 8%);
 `;
 
 type HeaderType = {

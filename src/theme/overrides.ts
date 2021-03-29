@@ -21,6 +21,14 @@ export type ThemeOverrides = Overrides &
   };
 
 const overrides: ThemeOverrides = {
+  MuiCssBaseline: {
+    '@global': {
+      h1: {
+        margin: 0,
+        padding: 0,
+      },
+    },
+  },
   MuiCard: {
     root: {
       borderRadius: '6px',

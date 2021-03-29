@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
 
-import { Hidden, Paper as MuiPaper } from '@material-ui/core';
+import { Hidden, Paper as MuiPaper, withWidth } from '@material-ui/core';
 import { spacing } from '@material-ui/system';
 import { isWidthUp } from '@material-ui/core/withWidth';
 import { Breakpoint } from '@material-ui/core/styles/createBreakpoints';
@@ -53,6 +53,7 @@ const Paper = styled(MuiPaper)(spacing);
 
 const MainContent = styled(Paper)`
   flex: 1;
+  margin: 24px;
   background: ${(props) => props.theme.palette.background.default};
   color: rgba(0, 0, 0, 0.87);
   box-shadow: none;
@@ -98,9 +99,7 @@ const Layout = ({ children, routes, width }: LayoutType) => {
         </Drawer>
         <AppContent>
           <Header onDrawerToggle={handleDrawerToggle} />
-          <MainContent p={isWidthUp('lg', width) ? 12 : 5}>
-            {children}
-          </MainContent>
+          <MainContent>{children}</MainContent>
           <Footer />
         </AppContent>
       </Root>
@@ -108,4 +107,4 @@ const Layout = ({ children, routes, width }: LayoutType) => {
   );
 };
 
-export default Layout;
+export default withWidth()(Layout);
