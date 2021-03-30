@@ -53,7 +53,6 @@ const Paper = styled(MuiPaper)(spacing);
 
 const MainContent = styled(Paper)`
   flex: 1;
-  margin: 24px;
   background: ${(props) => props.theme.palette.background.default};
   color: rgba(0, 0, 0, 0.87);
   box-shadow: none;
