@@ -42,7 +42,10 @@ const Breadcrumbs: React.FC<{}> = () => {
      */
     let index = 0;
     const temp: Array<BreadcrumbItemType> = new Array();
-    function generateRouteNames(routes: Array<RoutesType>, paths: Array<string>) {
+    function generateRouteNames(
+      routes: Array<RoutesType>,
+      paths: Array<string>,
+    ) {
       routes.forEach((item) => {
         if (item.path === paths[index]) {
           temp[index] = {
@@ -54,14 +57,17 @@ const Breadcrumbs: React.FC<{}> = () => {
             generateRouteNames(item.children, paths);
           }
         }
+
+        
       });
     }
+
     const paths: Array<string> = generatePaths(location.pathname);
     generateRouteNames(routes, paths);
     const home = [{ name: '首页', path: '/' }];
     const b = home.concat(temp);
-    setBreadcrumbs(b)
-  }, [])
+    setBreadcrumbs(b);
+  }, []);
 
   return (
     <Bread aria-label="breadcrumb">
