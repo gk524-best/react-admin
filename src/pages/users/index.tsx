@@ -71,7 +71,7 @@ const User: React.FC<{}> = () => {
       <TableForm search={onClick} />
       <TableContent elevation={0}>
         <div className="table-toolbar">
-          
+            
         </div>
       </TableContent>
     </PageWrapper>

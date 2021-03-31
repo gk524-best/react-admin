@@ -2,8 +2,15 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const WebpackBar = require('webpackbar');
+const portfinder = require('portfinder');
 
-module.exports = {
+const dotenv = require('dotenv');
+dotenv.config();
+
+portfinder.basePort = 3000;
+
+const devConfig = {
   mode: 'development',
   entry: path.resolve(__dirname, '../src/index'),
   output: {
@@ -14,12 +21,12 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   devServer: {
     compress: true,
-    contentBase: path.join(__dirname, '../public'),
     clientLogLevel: 'silent',
-    publicPath: '/',
     port: 3000,
     stats: 'errors-only',
     hot: true,
+    inline: true,
+    open: true,
     historyApiFallback: true,
   },
   resolve: {
@@ -96,5 +103,17 @@ module.exports = {
       filename: 'index.html',
       inject: true,
     }),
+    new WebpackBar(),
   ],
 };
+
+module.exports = new Promise((resolve, reject) => {
+  portfinder.getPort((err, port) => {
+    if (err) {
+      reject(err);
+      return;
+    }
+    devConfig.devServer.port = process.env.PORT = port;
+    resolve(devConfig);
+  });
+});
