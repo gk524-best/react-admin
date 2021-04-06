@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { TextField, Button, Paper } from '@material-ui/core';
 import PageWrapper from 'components/PageWrapper';
+import Tables, { Column } from 'components/Tables';
 import styled from 'styled-components';
 import { useFormik } from 'formik';
 
@@ -30,7 +31,7 @@ const TableContent = styled(Paper)`
     display: flex;
     justify-content: space-between;
   }
-`
+`;
 
 type IProps = {
   search: () => void;
@@ -64,14 +65,45 @@ const TableForm: React.FC<IProps> = (props) => {
   );
 };
 
+const columns: Array<Column> = [
+  {
+    id: 'id',
+    label: 'ID',
+  },
+  {
+    id: 'name',
+    label: '姓名',
+  },
+  {
+    id: 'username',
+    label: '账号',
+  },
+];
+
 const User: React.FC<{}> = () => {
+  const [total, setTotal] = useState<number>(0);
+  const [data, setData] = useState<Array<any>>([]);
+  const [page, setPage] = useState<number>(0);
+  const [tableTitle, setTableTitle] = useState<string>('账号列表');
+  const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event);
+  };
+
   const onClick = () => {};
+
   return (
     <PageWrapper title="账号列表" breadcrumb>
       <TableForm search={onClick} />
       <TableContent elevation={0}>
         <div className="table-toolbar">
-            
+          <Tables
+            title={tableTitle}
+            total={total}
+            columns={columns}
+            data={data}
+            page={page}
+            onSelectAllClick={handleSelectAllClick}
+          />
         </div>
       </TableContent>
     </PageWrapper>

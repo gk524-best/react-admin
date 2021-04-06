@@ -1,4 +1,5 @@
 import { createMuiTheme, Theme } from '@material-ui/core/styles';
+import { zhCN } from '@material-ui/core/locale';
 import breakpoints from './breakpoints';
 import overrides from './overrides';
 import props from './props';
@@ -31,6 +32,7 @@ const createTheme = (name: string): Theme => {
       sidebar: themeConfig.sidebar,
       palette: themeConfig.palette,
     },
+    zhCN,
   );
 };
 
