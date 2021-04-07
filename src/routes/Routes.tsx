@@ -8,6 +8,7 @@ const MallCategory = async(() => import('../pages/mall/category/index'));
 
 // 用户管理
 const User = async(() => import('../pages/users/index'));
+const My = async(() => import('../pages/users/my'));
 
 const HomeRoutes = {};
 
@@ -44,10 +45,15 @@ const userRoutes: RoutesType = {
     {
       path: '/user/list',
       name: '账号列表',
-      Component: User
-    }
-  ]
-}
+      Component: User,
+    },
+    {
+      path: '/user/my',
+      name: '个人中心',
+      Component: My,
+    },
+  ],
+};
 
 // 商品
 const productRoutes: RoutesType = {
@@ -62,6 +68,10 @@ const productRoutes: RoutesType = {
   ],
 };
 
-export const sidebarRoutes: Array<RoutesType> = [pagesRoutes, productRoutes, userRoutes];
+export const sidebarRoutes: Array<RoutesType> = [
+  pagesRoutes,
+  productRoutes,
+  userRoutes,
+];
 
 export const authRoutes = [LoginRoutes];

@@ -13,8 +13,7 @@ import {
   TablePagination,
 } from '@material-ui/core';
 import { createStyles, makeStyles, lighten } from '@material-ui/core/styles';
-import Theme from '@/theme';
-import styled, { ThemeContext } from 'styled-components';
+import { ThemeContext } from 'styled-components';
 
 export interface Column {
   id: string;
@@ -38,9 +37,7 @@ export interface EnhancedTableToolbarProps {
   selectedOptions?: Array<React.ReactNode>;
 }
 
-const useToolbarStyles = makeStyles(() => {
-  const theme = useContext(ThemeContext);
-
+const useToolbarStyles = makeStyles((theme) => {
   return createStyles({
     root: {
       paddingLeft: theme.spacing(2),
@@ -65,7 +62,8 @@ const useToolbarStyles = makeStyles(() => {
 // tool bar
 const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
   const { title, options, numSelected, selectedOptions } = props;
-  const styles = useToolbarStyles();
+  const theme = useContext(ThemeContext);
+  const styles = useToolbarStyles(theme);
   return (
     <Toolbar>
       {numSelected > 0 ? (
@@ -141,8 +139,7 @@ interface IProps<T> extends EnhancedTableToolbarProps, EnhancedTableProps {
 
 type IPropsOmit<T> = Omit<IProps<T>, 'numSelected'>;
 
-const useStyles = makeStyles(() => {
-  const theme = useContext(ThemeContext);
+const useStyles = makeStyles((theme) => {
   return createStyles({
     root: {
       width: '100%',
@@ -182,7 +179,8 @@ const Tables: React.FC<IPropsOmit<any>> = ({
   handleChangePage = () => {},
   handleChangeRowsPerPage = () => {},
 }) => {
-  const styles = useStyles();
+  const theme = useContext(ThemeContext);
+  const styles = useStyles(theme);
   const [numSelected, setNumSelected] = useState(0);
   const handleSelectAllClick = (event: React.ChangeEvent<HTMLInputElement>) => {
     // if (event.target.checked) {
@@ -232,6 +230,7 @@ const Tables: React.FC<IPropsOmit<any>> = ({
         </Table>
       </TableContainer>
       <TablePagination
+        color="primary"
         rowsPerPageOptions={pageOptions}
         component="div"
         count={total}

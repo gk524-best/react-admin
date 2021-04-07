@@ -4,8 +4,7 @@ var react_1 = require("react");
 var core_1 = require("@material-ui/core");
 var styles_1 = require("@material-ui/core/styles");
 var styled_components_1 = require("styled-components");
-var useToolbarStyles = styles_1.makeStyles(function () {
-    var theme = react_1.useContext(styled_components_1.ThemeContext);
+var useToolbarStyles = styles_1.makeStyles(function (theme) {
     return styles_1.createStyles({
         root: {
             paddingLeft: theme.spacing(2),
@@ -28,7 +27,8 @@ var useToolbarStyles = styles_1.makeStyles(function () {
 // tool bar
 var EnhancedTableToolbar = function (props) {
     var title = props.title, options = props.options, numSelected = props.numSelected, selectedOptions = props.selectedOptions;
-    var styles = useToolbarStyles();
+    var theme = react_1.useContext(styled_components_1.ThemeContext);
+    var styles = useToolbarStyles(theme);
     return (react_1["default"].createElement(core_1.Toolbar, null,
         numSelected > 0 ? (react_1["default"].createElement(core_1.Typography, { className: styles.title, color: "inherit", variant: "subtitle1", component: "div" },
             numSelected,
@@ -49,8 +49,7 @@ function EnhancedTableHead(props) {
                 return (react_1["default"].createElement(core_1.TableCell, { key: item.id, align: (_a = item.align) !== null && _a !== void 0 ? _a : 'left', padding: (_b = item.padding) !== null && _b !== void 0 ? _b : 'default' }, item.label));
             }))));
 }
-var useStyles = styles_1.makeStyles(function () {
-    var theme = react_1.useContext(styled_components_1.ThemeContext);
+var useStyles = styles_1.makeStyles(function (theme) {
     return styles_1.createStyles({
         root: {
             width: '100%'
@@ -77,7 +76,8 @@ var useStyles = styles_1.makeStyles(function () {
 });
 var Tables = function (_a) {
     var title = _a.title, total = _a.total, _b = _a.data, data = _b === void 0 ? [] : _b, columns = _a.columns, page = _a.page, onSelectAllClick = _a.onSelectAllClick, _c = _a.options, options = _c === void 0 ? [] : _c, _d = _a.selectedOptions, selectedOptions = _d === void 0 ? [] : _d, _e = _a.rowsPerPage, rowsPerPage = _e === void 0 ? 15 : _e, _f = _a.pageOptions, pageOptions = _f === void 0 ? [15, 25, 50] : _f, _g = _a.handleChangePage, handleChangePage = _g === void 0 ? function () { } : _g, _h = _a.handleChangeRowsPerPage, handleChangeRowsPerPage = _h === void 0 ? function () { } : _h;
-    var styles = useStyles();
+    var theme = react_1.useContext(styled_components_1.ThemeContext);
+    var styles = useStyles(theme);
     var _j = react_1.useState(0), numSelected = _j[0], setNumSelected = _j[1];
     var handleSelectAllClick = function (event) {
         // if (event.target.checked) {
@@ -101,6 +101,6 @@ var Tables = function (_a) {
                 react_1["default"].createElement(core_1.TableBody, null, data.map(function (row) {
                     return react_1["default"].createElement(core_1.TableRow, null, generateTableCell(row));
                 })))),
-        react_1["default"].createElement(core_1.TablePagination, { rowsPerPageOptions: pageOptions, component: "div", count: total, rowsPerPage: rowsPerPage, page: page, onChangePage: handleChangePage, onChangeRowsPerPage: handleChangeRowsPerPage })));
+        react_1["default"].createElement(core_1.TablePagination, { color: "primary", rowsPerPageOptions: pageOptions, component: "div", count: total, rowsPerPage: rowsPerPage, page: page, onChangePage: handleChangePage, onChangeRowsPerPage: handleChangeRowsPerPage })));
 };
 exports["default"] = Tables;
