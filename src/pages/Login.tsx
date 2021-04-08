@@ -17,8 +17,10 @@ import * as Yup from 'yup';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
+import { login } from '@/services/app';
+
 /**声明**/
-interface SingInValues {
+export interface SingInValues {
   amount: string;
   password: string;
   isRemember: boolean;
@@ -68,13 +70,15 @@ const SignIn: React.FC<SignInProps> = (props) => {
     values: SingInValues,
     { setSubmitting }: FormikHelpers<SingInValues>,
   ) => {
-    console.log(props);
     const { dispath } = props;
-    if (values.amount === 'admin' && values.password === '123456') {
-      setTimeout(() => {
-        setSubmitting(false);
-      }, 1000);
-    }
+    login(values).subscribe((res) => {
+      console.log(res);
+    });
+    // if (values.amount === 'admin' && values.password === '123456') {
+    //   setTimeout(() => {
+    //     setSubmitting(false);
+    //   }, 1000);
+    // }
   };
 
   return (

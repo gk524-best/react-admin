@@ -6,7 +6,17 @@ const WebpackBar = require('webpackbar');
 const portfinder = require('portfinder');
 
 const dotenv = require('dotenv');
-dotenv.config();
+const nodeEnv = process.env.NODE_ENV;
+
+if (nodeEnv === 'development') {
+  dotenv.config({
+    path: path.resolve(process.cwd(), '.env.dev'),
+  });
+} else {
+  dotenv.config({
+    path: path.resolve(process.cwd(), '.env.prod'),
+  });
+}
 
 portfinder.basePort = 3000;
 
@@ -20,7 +30,8 @@ const devConfig = {
   },
   devtool: 'cheap-module-source-map',
   devServer: {
-    compress: true,
+    contentBase: path.resolve(__dirname, '../dist'),
+    // compress: true,
     clientLogLevel: 'silent',
     port: 3000,
     stats: 'errors-only',
@@ -97,6 +108,9 @@ const devConfig = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      'process.env': JSON.stringify(process.env),
+    }),
     new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     new HtmlWebpackPlugin({
       template: 'public/index.html',

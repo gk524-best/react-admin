@@ -5,10 +5,11 @@ import {
   ListItemText,
   Paper,
   TextField,
-  OutlinedInput,
+  Button,
 } from '@material-ui/core';
+import { Formik } from 'formik';
 import styled from 'styled-components';
-
+import PublishIcon from '@material-ui/icons/Publish';
 import PageWrapper from 'components/PageWrapper';
 
 const Wrapper = styled(Paper)`
@@ -25,6 +26,7 @@ const Wrapper = styled(Paper)`
 const Left = styled.div`
   ${(props) => props.theme.breakpoints.up('md')} {
     width: 224px;
+    border-right: 1px solid #f0f0f0;
   }
   ${(props) => props.theme.breakpoints.down('md')} {
     width: 100%;
@@ -82,8 +84,37 @@ const Container = styled.div`
   .basic-right {
     flex: 1 1;
     padding-left: 104px;
+    .avatar-title {
+      height: 22px;
+      margin-bottom: 8px;
+      color: rgba(0, 0, 0, 0.85);
+      font-size: 14px;
+      line-height: 22px;
+    }
+    .view-avatar {
+      width: 144px;
+      height: 144px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+    .avatar-upload {
+      width: 144px;
+      display: flex;
+      justify-content: center;
+      .input {
+        display: none;
+      }
+    }
   }
   .form-root {
+  }
+`;
+
+const MuiTextField = styled(TextField)`
+  margin-bottom: 16px;
+  &:last-of-type {
+    margin-bottom: 32px;
   }
 `;
 
@@ -94,17 +125,41 @@ const BasicSetting = () => {
       <Container>
         <div className="basic-left">
           <form className="mui-form">
-            <TextField style={{ display: 'flex' }} label="姓名" fullWidth />
-            <TextField style={{ display: 'flex' }} label="账号" fullWidth />
-            <TextField
+            <MuiTextField style={{ display: 'flex' }} label="姓名" fullWidth />
+            <MuiTextField style={{ display: 'flex' }} label="账号" fullWidth />
+            <MuiTextField
               type="password"
               style={{ display: 'flex' }}
               label="密码"
               fullWidth
             />
+            <Button variant="contained" color="primary">
+              更新基本信息
+            </Button>
           </form>
         </div>
-        <div className="basic-right"></div>
+        <div className="basic-right">
+          <div className="avatar-title">头像</div>
+          <div className="view-avatar">
+            <img src="" alt="avatar" />
+          </div>
+          <div className="avatar-upload">
+            <input
+              className="input"
+              id="contained-button-file"
+              type="file"
+              accept="image/*"
+            />
+            <label htmlFor="contained-button-file">
+              <Button
+                variant="outlined"
+                component="span"
+                startIcon={<PublishIcon />}>
+                更换头像
+              </Button>
+            </label>
+          </div>
+        </div>
       </Container>
     </>
   );

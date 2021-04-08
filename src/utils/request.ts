@@ -32,7 +32,9 @@ export class Request<T> extends Observable<T> {
 
   private body: T | null = null;
 
-  private headers: object | undefined = undefined;
+  private headers: object | undefined = {
+    'Content-Type': 'application/json',
+  };
 
   constructor(url: string, method: string, options: OptionsType) {
     super();
@@ -51,7 +53,10 @@ export class Request<T> extends Observable<T> {
     }
 
     if (options.headers !== undefined) {
-      this.headers = options.headers;
+      this.headers = {
+        ...this.headers,
+        ...options.headers,
+      };
     }
   }
 
@@ -59,18 +64,26 @@ export class Request<T> extends Observable<T> {
     const ajaxOptions: AjaxRequest = {
       url: this.baseUrl,
       method: this.method,
+      responseType: 'json',
     };
 
     if (mightHaveBody(this.method)) {
-      ajaxOptions['body'] = this.body;
+      ajaxOptions['body'] = JSON.stringify(this.body);
     }
 
     if (this.headers) {
-      ajaxOptions['headers'] = JSON.stringify(this.headers);
+      ajaxOptions['headers'] = this.headers;
     }
 
+    // console.log(
+    //   '===========================request options===============================',
+    // );
+    // console.log(ajaxOptions);
+
     return ajax(ajaxOptions).pipe(
-      map((response) => console.log('response', response)),
+      map((response) =>
+        console.log('===========response===========', response),
+      ),
       catchError((error) => {
         console.log('error', error);
         return of(error);
