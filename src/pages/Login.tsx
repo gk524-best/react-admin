@@ -21,7 +21,7 @@ import { login } from '@/services/app';
 
 /**声明**/
 export interface SingInValues {
-  amount: string;
+  username: string;
   password: string;
   isRemember: boolean;
 }
@@ -43,14 +43,14 @@ const Wrapper = styled(Paper)`
 
 const SignIn: React.FC<SignInProps> = (props) => {
   const [signInValues, setSignInValues] = React.useState<SignInState>({
-    amount: '',
+    username: '',
     password: '',
     isRemember: false,
     showPassword: false,
   });
 
   const initialValues: SingInValues = {
-    amount: '',
+    username: '',
     password: '',
     isRemember: false,
   };
@@ -73,12 +73,8 @@ const SignIn: React.FC<SignInProps> = (props) => {
     const { dispath } = props;
     login(values).subscribe((res) => {
       console.log(res);
+      setSubmitting(false);
     });
-    // if (values.amount === 'admin' && values.password === '123456') {
-    //   setTimeout(() => {
-    //     setSubmitting(false);
-    //   }, 1000);
-    // }
   };
 
   return (
@@ -91,7 +87,7 @@ const SignIn: React.FC<SignInProps> = (props) => {
         initialValues={initialValues}
         onSubmit={hadnleSubmit}
         validationSchema={Yup.object({
-          amount: Yup.string()
+          username: Yup.string()
             .min(4, '最少4个字符')
             .max(15, '最多不超过15个字符')
             .required('必须'),
@@ -113,14 +109,14 @@ const SignIn: React.FC<SignInProps> = (props) => {
             {/* 账号 */}
             <FormControl fullWidth margin="normal" variant="outlined">
               <TextField
-                error={Boolean(touched.amount && errors.amount)}
-                helperText={touched.amount && errors.amount}
+                error={Boolean(touched.username && errors.username)}
+                helperText={touched.username && errors.username}
                 id="signIn-amount"
-                name="amount"
+                name="username"
                 label="账号"
                 variant="outlined"
                 type="text"
-                value={values.amount}
+                value={values.username}
                 onChange={handleChange}
                 onBlur={handleBlur}
               />

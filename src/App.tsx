@@ -15,6 +15,7 @@ import Routes from 'routes/index';
 import createTheme from './theme';
 import { ThemeStateType } from 'store/reducers/themeReducer';
 import './App';
+import Snackbar from 'components/Snackbar';
 
 const jssHtml = document.getElementById('jss-insertion-point') ?? undefined;
 const jss = create({
@@ -88,6 +89,7 @@ function App() {
       <Helmet titleTemplate="%s" />
       <CssBaseline />
       <GlobalStyle />
+      <Snackbar/>
       <StylesProvider jss={jss}>
         <MuiThemeProvider theme={createTheme(theme.currentTheme)}>
           <ThemeProvider theme={createTheme(theme.currentTheme)}>

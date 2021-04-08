@@ -1,6 +1,7 @@
 import { ajax, AjaxRequest, AjaxResponse } from 'rxjs/ajax';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
+import message from './message';
 
 type OptionsType = {
   getway?: string;
@@ -46,7 +47,11 @@ export class Request<T> extends Observable<T> {
       this.getWay = '/api';
     }
 
-    this.baseUrl = process.env.APP_BASE_URL + this.getWay + url;
+    if (process.env.NODE_ENV === 'development') {
+      this.baseUrl = this.getWay + url;
+    } else {
+      this.baseUrl = process.env.APP_BASE_URL + this.getWay + url;
+    }
 
     if (mightHaveBody(this.method)) {
       this.body = options.body ?? null;
@@ -75,20 +80,31 @@ export class Request<T> extends Observable<T> {
       ajaxOptions['headers'] = this.headers;
     }
 
-    // console.log(
-    //   '===========================request options===============================',
-    // );
-    // console.log(ajaxOptions);
+    console.log(
+      '===========================request options===============================',
+    );
+    console.log(ajaxOptions);
 
     return ajax(ajaxOptions).pipe(
-      map((response) =>
-        console.log('===========response===========', response),
-      ),
+      map((data) => {
+        console.log('===========response===========', data.response);
+        const status = data.status;
+        // stataus 状态判断
+        if (status === 200) {
+          const res = data.response;
+          if (res.code !== 0) {
+            message.error(res.message)
+          } else {
+            return data.response
+          }
+        }
+      }),
       catchError((error) => {
-        console.log('error', error);
+        console.log(error);
+        message.error(error)
         return of(error);
       }),
-    );
+    )
   }
 }
 
