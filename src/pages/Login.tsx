@@ -71,8 +71,10 @@ const SignIn: React.FC<SignInProps> = (props) => {
     { setSubmitting }: FormikHelpers<SingInValues>,
   ) => {
     const { dispath } = props;
-    login(values).subscribe((res) => {
-      console.log(res);
+    login(values).subscribe((res: App.Response) => {
+      if (res.status) {
+        
+      }
       setSubmitting(false);
     });
   };

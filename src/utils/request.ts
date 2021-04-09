@@ -80,31 +80,30 @@ export class Request<T> extends Observable<T> {
       ajaxOptions['headers'] = this.headers;
     }
 
-    console.log(
-      '===========================request options===============================',
-    );
-    console.log(ajaxOptions);
+    // console.log(
+    //   '===========================request options===============================',
+    // );
+    // console.log(ajaxOptions);
 
     return ajax(ajaxOptions).pipe(
-      map((data) => {
-        console.log('===========response===========', data.response);
+      map((data: AjaxResponse) => {
+        console.log('===========response===========', data);
         const status = data.status;
         // stataus 状态判断
         if (status === 200) {
           const res = data.response;
           if (res.code !== 0) {
-            message.error(res.message)
-          } else {
-            return data.response
+            message.error(res.message);
           }
+          return data.response;
         }
       }),
       catchError((error) => {
         console.log(error);
-        message.error(error)
+        message.error(error);
         return of(error);
       }),
-    )
+    );
   }
 }
 
