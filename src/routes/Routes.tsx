@@ -3,7 +3,7 @@ import async from 'components/Async1';
 import { RoutesType } from './index';
 
 const Home = async(() => import('../pages/home'));
-const Login = async(() => import('../pages/Login'));
+const Login = async(() => import('../pages/signIn'));
 const MallCategory = async(() => import('../pages/mall/category/index'));
 
 // 用户管理

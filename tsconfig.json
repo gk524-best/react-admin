@@ -22,8 +22,7 @@
       "utils/*": ["./src/utils/*"],
       "services/*": ["./src/services/*"],
       "constants/*": ["./src/constants/*"],
-      "routes/*": ["./src/routes/*"],
-      "store/*": ["./src/store/*"]
+      "routes/*": ["./src/routes/*"]
     }
   },
   "exclude": ["node_modules"],

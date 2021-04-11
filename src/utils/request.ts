@@ -2,10 +2,12 @@ import { ajax, AjaxRequest, AjaxResponse } from 'rxjs/ajax';
 import { Observable, of } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import message from './message';
+import { tokenStorage } from 'utils/storage';
 
 type OptionsType = {
   getway?: string;
   headers?: object;
+  noToken?: boolean;
   body?: any;
   timeout?: number;
   responseType?: string;
@@ -33,7 +35,7 @@ export class Request<T> extends Observable<T> {
 
   private body: T | null = null;
 
-  private headers: object | undefined = {
+  private headers: Record<string, string> = {
     'Content-Type': 'application/json',
   };
 
@@ -45,6 +47,11 @@ export class Request<T> extends Observable<T> {
       this.getWay = options.getway;
     } else {
       this.getWay = '/api';
+    }
+
+    const token = tokenStorage.get();
+    if (options.noToken && token) {
+      this.headers['Authorization'] = token.access_token;
     }
 
     if (process.env.NODE_ENV === 'development') {

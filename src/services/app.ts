@@ -1,8 +1,11 @@
 import { post } from 'utils/request';
-import { SingInValues } from 'pages/Login';
+import { SingInValues } from '@/pages/signIn';
 
-export const login = (postData: SingInValues) => {
+// 登录
+export const userLogin = (postData: SingInValues) => {
   return post('/login', {
     body: postData,
   });
 };
+
+// 

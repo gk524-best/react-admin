@@ -53,7 +53,6 @@ const devConfig = {
       services: path.resolve(__dirname, '../src/services'),
       constants: path.resolve(__dirname, '../src/constants'),
       routes: path.resolve(__dirname, '../src/routes'),
-      store: path.resolve(__dirname, '../src/store'),
     },
   },
   module: {

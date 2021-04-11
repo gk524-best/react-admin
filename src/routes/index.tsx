@@ -9,12 +9,12 @@ import Layout from '@/layouts';
 import AuthLayout from '@/layouts/auth';
 import { sidebarRoutes, authRoutes } from './Routes';
 import { connect } from 'react-redux';
-import { ReduxStateType } from 'store/reducers/index';
+import { ReduxStateType } from '@/redux/reducers/RootReducer';
 
 import async from 'components/Async1';
 
 const Page404 = async(() => import('../pages/auth/Page404'));
-const Login = async(() => import('../pages/Login'));
+const Login = async(() => import('../pages/signIn'));
 
 export type RoutesType = {
   name: string;
@@ -95,7 +95,7 @@ const Routes = (props: RoutesProps) => {
 
 const mapStateToProps = (state: ReduxStateType) => {
   return {
-    isLogin: state.authReducer.isLogin,
+    isLogin: state.auth.isLogin,
   };
 };
 

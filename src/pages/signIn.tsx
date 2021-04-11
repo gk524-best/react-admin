@@ -17,7 +17,8 @@ import * as Yup from 'yup';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-import { login } from '@/services/app';
+import { login } from '@/redux/actions/SignInActions';
+import { connect } from 'react-redux';
 
 /**声明**/
 export interface SingInValues {
@@ -70,13 +71,7 @@ const SignIn: React.FC<SignInProps> = (props) => {
     values: SingInValues,
     { setSubmitting }: FormikHelpers<SingInValues>,
   ) => {
-    const { dispath } = props;
-    login(values).subscribe((res: App.Response) => {
-      if (res.status) {
-        
-      }
-      setSubmitting(false);
-    });
+    console.log(props);
   };
 
   return (
@@ -184,4 +179,8 @@ const SignIn: React.FC<SignInProps> = (props) => {
   );
 };
 
-export default SignIn;
+const mapDispatchToProps = (dispatch: Dispatch, ) {
+
+}
+
+export default connect(null, { login })(SignIn);

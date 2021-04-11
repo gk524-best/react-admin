@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux';
 import * as types from 'constants/app';
 import { APP_THEMES, ThemesType } from 'constants/app';
 import { AnyAction } from 'redux';
