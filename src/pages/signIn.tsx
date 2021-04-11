@@ -179,8 +179,8 @@ const SignIn: React.FC<SignInProps> = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: Dispatch, ) {
+const mapDispatchToProps = (dispatch: App.D) => ({
+  login: (values: SingInValues) => dispatch(login(values)),
+});
 
-}
-
-export default connect(null, { login })(SignIn);
+export default connect(null, mapDispatchToProps)(SignIn);
