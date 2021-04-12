@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import ThemeReducer, { ThemeStateType } from './ThemeReducer';
-import AuthReducer, { AuthStateType } from './AuthReducer';
-import SignInReducer, { SignInStateType } from './SignInReducer';
+import ThemeReducer, { ThemeState } from './ThemeReducer';
+import AuthReducer, { AuthState } from './AuthReducer';
+import SignInReducer, { SignInState } from './SignInReducer';
 
-export type ReduxStateType = {
-  auth: AuthStateType;
-  theme: ThemeStateType;
-  signIn: SignInStateType
+export type RootState = {
+  auth: AuthState;
+  theme: ThemeState;
+  signIn: SignInState
 };
 
 const RootReducer = combineReducers({

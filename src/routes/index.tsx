@@ -9,7 +9,7 @@ import Layout from '@/layouts';
 import AuthLayout from '@/layouts/auth';
 import { sidebarRoutes, authRoutes } from './Routes';
 import { connect } from 'react-redux';
-import { ReduxStateType } from '@/redux/reducers/RootReducer';
+import { RootState } from '@/redux/reducers/RootReducer';
 
 import async from 'components/Async1';
 
@@ -93,7 +93,7 @@ const Routes = (props: RoutesProps) => {
   );
 };
 
-const mapStateToProps = (state: ReduxStateType) => {
+const mapStateToProps = (state: RootState) => {
   return {
     isLogin: state.auth.isLogin,
   };

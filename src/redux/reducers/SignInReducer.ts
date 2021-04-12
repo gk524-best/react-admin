@@ -2,7 +2,7 @@ import {
   SIGNIN_SUCCESS,
   SIGNIN_LOADING,
   SIGNIN_ERROR,
-} from '../actions/SignInActions';
+} from '../actions/SignInAction';
 import { AnyAction } from 'redux';
 
 const initialState = {
@@ -10,10 +10,10 @@ const initialState = {
   success: false,
 };
 
-export type SignInStateType = Readonly<typeof initialState>;
+export type SignInState = Readonly<typeof initialState>;
 
 const SingInReducer = function (
-  state: SignInStateType = initialState,
+  state: SignInState = initialState,
   action: AnyAction,
 ) {
   switch (action.type) {

@@ -1,13 +1,11 @@
 import * as types from 'constants/app';
 import { AnyAction } from 'redux';
 
-export type AuthStateType = {
-  isLogin: boolean;
-};
-
 const initialAuthState = {
   isLogin: true,
 };
+
+export type AuthState = Readonly<typeof initialAuthState>;
 
 export default (state = initialAuthState, action: AnyAction) => {
   switch (action.type) {

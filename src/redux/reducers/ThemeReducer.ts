@@ -1,8 +1,8 @@
 import * as types from 'constants/app';
-import { APP_THEMES, ThemesType } from 'constants/app';
+import { APP_THEMES } from 'constants/app';
 import { AnyAction } from 'redux';
 
-export type ThemeStateType = {
+export type ThemeState = {
   currentTheme: string;
 };
 

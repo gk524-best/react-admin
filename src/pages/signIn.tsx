@@ -17,7 +17,8 @@ import * as Yup from 'yup';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
 
-import { login } from '@/redux/actions/SignInActions';
+import { signInAction } from '@/redux/actions/SignInAction';
+import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 /**声明**/
@@ -32,7 +33,8 @@ interface SignInState extends SingInValues {
 }
 
 interface SignInProps {
-  dispath: () => void;
+  signIn: (values: SingInValues) => any;
+  dispatch: Dispatch;
 }
 
 const Wrapper = styled(Paper)`
@@ -72,6 +74,9 @@ const SignIn: React.FC<SignInProps> = (props) => {
     { setSubmitting }: FormikHelpers<SingInValues>,
   ) => {
     console.log(props);
+    props.signIn(values);
+    // console.log(props);
+    // props.login(values);
   };
 
   return (
@@ -179,8 +184,14 @@ const SignIn: React.FC<SignInProps> = (props) => {
   );
 };
 
-const mapDispatchToProps = (dispatch: App.D) => ({
-  login: (values: SingInValues) => dispatch(login(values)),
-});
+interface OwnProps {}
+
+const mapDispatchToProps = (dispatch: Dispatch) =>
+  bindActionCreators(
+    {
+      signIn: (values: SingInValues) => signInAction(values),
+    },
+    dispatch,
+  );
 
 export default connect(null, mapDispatchToProps)(SignIn);
