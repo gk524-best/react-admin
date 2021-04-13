@@ -12,25 +12,15 @@ export const SIGNIN_ERROR = 'SIGNIN_ERROR';
 
 export const signInAction = (values: SingInValues) => action(SIGNIN, values);
 
-// export function login(values: SingInValues) {
-//   return (dispatch: Dispatch) => {
-//     debugger;
-//     dispatch({
-//       type: SIGNIN_LOADING,
-//     });
-//     debugger;
-//     return userLogin(values).subscribe((res: App.Response) => {
-//       if (res.status) {
-//         tokenStorage.set(res.data);
-//         message.success('登录成功');
-//         return dispatch({
-//           type: SIGNIN_SUCCESS,
-//         });
-//       } else {
-//         return dispatch({
-//           type: SIGNIN_ERROR,
-//         });
-//       }
-//     });
-//   };
-// }
+export const signInSuccess = () => action(SIGNIN_SUCCESS);
+
+export const signInError = () => action(SIGNIN_ERROR);
+
+export const signInLoading = () => action(SIGNIN_LOADING);
+
+export default {
+  signInAction,
+  signInSuccess,
+  signInError,
+  signInLoading,
+};
