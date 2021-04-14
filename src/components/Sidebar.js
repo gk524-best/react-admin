@@ -261,7 +261,7 @@ const Sidebar = ({ routes, classes, staticContext, location, ...rest }) => {
                       ))}
                     </Collapse>
                   </React.Fragment>
-                ) : category.icon ? (
+                ) : (
                   <SidebarCategory
                     isCollapsable={false}
                     name={category.name}
@@ -272,7 +272,7 @@ const Sidebar = ({ routes, classes, staticContext, location, ...rest }) => {
                     exact
                     button
                   />
-                ) : null}
+                )}
               </React.Fragment>
             ))}
           </ListWrapper>

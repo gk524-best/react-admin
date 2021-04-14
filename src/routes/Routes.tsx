@@ -2,7 +2,7 @@ import React from 'react';
 import async from 'components/Async1';
 import { RoutesType } from './index';
 
-const Home = async(() => import('../pages/home'));
+const Dashboard = async(() => import('../pages/dashboard'));
 const Login = async(() => import('../pages/signIn'));
 const MallCategory = async(() => import('../pages/mall/category/index'));
 
@@ -26,15 +26,9 @@ const LoginRoutes: RoutesType = {
 };
 
 const pagesRoutes: RoutesType = {
-  name: 'Pages',
-  path: '/pages',
-  children: [
-    {
-      path: '/pages/home',
-      name: '首页',
-      Component: Home,
-    },
-  ],
+  name: 'Dashboard',
+  path: '/dashboard',
+  Component: Dashboard,
 };
 
 // 账号管理

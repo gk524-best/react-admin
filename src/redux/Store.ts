@@ -1,12 +1,21 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import RootReducer from './reducers/RootReducer';
+import { RootAction } from './actions/RootAction';
+import RootReducer, { RootState } from './reducers/RootReducer';
 import epics from './epics/RootEpic';
-import { createEpicMiddleware } from 'redux-observable';
+import { createEpicMiddleware, EpicMiddleware } from 'redux-observable';
+
+export type AppState = RootState;
+
+export type AppAction = RootAction;
 
 const composeEnhancers =
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const epicMiddleware = createEpicMiddleware();
+const epicMiddleware: EpicMiddleware<
+  AppAction,
+  AppAction,
+  AppState
+> = createEpicMiddleware();
 
 const Store = createStore(
   RootReducer,

@@ -1,6 +1,6 @@
 import { ajax, AjaxRequest, AjaxResponse } from 'rxjs/ajax';
-import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { from, Observable, of, throwError } from 'rxjs';
+import { map, catchError, concatMap } from 'rxjs/operators';
 import message from './message';
 import { tokenStorage } from 'utils/storage';
 
@@ -11,6 +11,7 @@ type OptionsType = {
   body?: any;
   timeout?: number;
   responseType?: string;
+  showMessage?: boolean;
 };
 
 function mightHaveBody(method: string): boolean {
@@ -39,7 +40,16 @@ export class Request<T> extends Observable<T> {
     'Content-Type': 'application/json',
   };
 
-  constructor(url: string, method: string, options: OptionsType) {
+  private showMessage: boolean = true;
+
+  constructor(
+    url: string,
+    method: string,
+    options: OptionsType = {
+      noToken: false,
+      showMessage: true,
+    },
+  ) {
     super();
     this.method = method.toUpperCase();
 
@@ -49,8 +59,12 @@ export class Request<T> extends Observable<T> {
       this.getWay = '/api';
     }
 
+    // 是否显示message提示
+    this.showMessage = Boolean(options.showMessage);
+
+    // 设置Authorization
     const token = tokenStorage.get();
-    if (options.noToken && token) {
+    if (!options.noToken && token) {
       this.headers['Authorization'] = token.access_token;
     }
 
@@ -73,41 +87,33 @@ export class Request<T> extends Observable<T> {
   }
 
   create() {
-    const ajaxOptions: AjaxRequest = {
+    const reqOptions: AjaxRequest = {
       url: this.baseUrl,
       method: this.method,
       responseType: 'json',
     };
 
     if (mightHaveBody(this.method)) {
-      ajaxOptions['body'] = JSON.stringify(this.body);
+      reqOptions['body'] = JSON.stringify(this.body);
     }
 
     if (this.headers) {
-      ajaxOptions['headers'] = this.headers;
+      reqOptions['headers'] = this.headers;
     }
 
-    // console.log(
-    //   '===========================request options===============================',
-    // );
-    // console.log(ajaxOptions);
-
-    return ajax(ajaxOptions).pipe(
+    return ajax(reqOptions).pipe(
       map((data: AjaxResponse) => {
-        console.log('===========response===========', data);
-        const status = data.status;
-        // stataus 状态判断
-        if (status === 200) {
-          const res = data.response;
-          if (res.code !== 0) {
-            message.error(res.message);
+        const { status, response } = data;
+        if (status === 200 && !response.status) {
+          if (this.showMessage) {
+            message.error(response.message);
           }
-          return data.response;
         }
+        return response;
       }),
       catchError((error) => {
-        console.log(error);
-        message.error(error);
+        if (error.status === 401 || error.status === 403) {
+        }
         return of(error);
       }),
     );

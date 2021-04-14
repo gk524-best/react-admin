@@ -13,7 +13,7 @@ import { create } from 'jss';
 
 import Routes from 'routes/index';
 import createTheme from './theme';
-import { ThemeStateType } from '@/redux/reducers/ThemeReducer';
+import { ThemeState } from '@/redux/reducers/ThemeReducer';
 import './App';
 import Snackbar from 'components/Snackbar';
 
@@ -82,7 +82,7 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
-  const theme: ThemeStateType = useSelector((state: any) => state.theme);
+  const theme: ThemeState = useSelector((state: any) => state.theme);
 
   return (
     <React.Fragment>

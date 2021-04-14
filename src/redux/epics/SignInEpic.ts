@@ -1,56 +1,42 @@
-import { Observable } from 'rxjs';
-import { ofType, ActionsObservable, Epic } from 'redux-observable';
-import { switchMap, filter, map, mapTo } from 'rxjs/operators';
-import { ActionCreator } from 'typesafe-actions';
+import { concat, Observable } from 'rxjs';
+import { ofType, Epic } from 'redux-observable';
+import { switchMap, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import message from 'utils/message';
 import { tokenStorage } from 'utils/storage';
+import actions, { SIGNIN } from '../actions/SignInAction';
+import { AppAction, AppState } from '../Store';
+
 import { userLogin } from 'services/app';
-import actions, {
-  SIGNIN,
-  SIGNIN_SUCCESS,
-  SIGNIN_ERROR,
-} from '../actions/SignInAction';
-import { RootState } from '../reducers/RootReducer';
-import { AjaxResponse } from 'rxjs/ajax';
+import { AnyAction } from 'redux';
 
-console.log(actions);
-
-// type AllActions = ActionCreator<typeof actions>;
-
-// t;ype Action = ActionType<typeof signInAction>
-
-const loginEpic: Epic = (action$: Observable<any>) => {
-  const response$ = action$.pipe(
+const loginEpic: Epic<AppAction, AppAction, AppState> = (
+  action$: Observable<AppAction>,
+) => {
+  return action$.pipe(
     ofType(SIGNIN),
-    switchMap((action) => {
-      console.log(action);
-      actions.signInLoading();
+    switchMap((action: AnyAction) => {
       const values = {
         ...action.payload,
       };
-      return userLogin(values);
+      return concat(
+        of(actions.signInLoading()),
+        userLogin(values).pipe(
+          map((res: App.Response) => {
+            if (res.status) {
+              message.success('登录成功');
+              tokenStorage.set(res.data);
+              // 跳转到首页
+              return actions.signInSuccess();
+            } else {
+              return actions.signInError();
+            }
+          }),
+        ),
+      );
     }),
   );
-
-  response$.subscribe((res: App.Response) => {
-    if (res.status) {
-      tokenStorage.set(res.data);
-      message.success('登录成功');
-      return mapTo(SIGNIN_SUCCESS);
-      // return actions.signInSuccess();
-      // return dispatch({
-      //   type: SIGNIN_SUCCESS,
-      // });
-    } else {
-      mapTo(SIGNIN_ERROR);
-      // return actions.signInError();
-      // return dispatch({
-      //   type: SIGNIN_ERROR,
-      // });
-    }
-  });
 };
 
 export default [loginEpic];

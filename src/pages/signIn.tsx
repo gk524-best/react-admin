@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Helmet from 'react-helmet';
 import styled from 'styled-components';
 import {
@@ -16,10 +16,12 @@ import { Formik, FormikHelpers } from 'formik';
 import * as Yup from 'yup';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import { useHistory } from 'react-router-dom';
 
 import { signInAction } from '@/redux/actions/SignInAction';
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
+import { AppAction, AppState } from '@/redux/Store';
 
 /**声明**/
 export interface SingInValues {
@@ -32,10 +34,7 @@ interface SignInState extends SingInValues {
   showPassword: boolean;
 }
 
-interface SignInProps {
-  signIn: (values: SingInValues) => any;
-  dispatch: Dispatch;
-}
+type Props = LinkStateProp & LinkDispatchProp;
 
 const Wrapper = styled(Paper)`
   padding: ${(props) => props.theme.spacing(6)}px;
@@ -44,13 +43,20 @@ const Wrapper = styled(Paper)`
   }
 `;
 
-const SignIn: React.FC<SignInProps> = (props) => {
-  const [signInValues, setSignInValues] = React.useState<SignInState>({
+const SignIn: React.FC<Props> = (props) => {
+  const [signInValues, setSignInValues] = useState<SignInState>({
     username: '',
     password: '',
     isRemember: false,
     showPassword: false,
   });
+
+  const history = useHistory();
+  useEffect(() => {
+    if (props.loginStatus) {
+      history.push('/dashboard');
+    }
+  }, [props.loginStatus]);
 
   const initialValues: SingInValues = {
     username: '',
@@ -69,10 +75,7 @@ const SignIn: React.FC<SignInProps> = (props) => {
     event.preventDefault();
   };
 
-  const hadnleSubmit = (
-    values: SingInValues,
-    { setSubmitting }: FormikHelpers<SingInValues>,
-  ) => {
+  const hadnleSubmit = (values: SingInValues) => {
     console.log(props);
     props.signIn(values);
     // console.log(props);
@@ -171,7 +174,7 @@ const SignIn: React.FC<SignInProps> = (props) => {
             {/* 提交 */}
             <Button
               color="primary"
-              disabled={isSubmitting}
+              disabled={props.loading}
               fullWidth
               variant="contained"
               type="submit">
@@ -184,9 +187,24 @@ const SignIn: React.FC<SignInProps> = (props) => {
   );
 };
 
-interface OwnProps {}
+interface LinkStateProp {
+  loading: boolean;
+  loginStatus: boolean;
+}
 
-const mapDispatchToProps = (dispatch: Dispatch) =>
+interface LinkDispatchProp {
+  signIn: (values: SingInValues) => void;
+}
+
+const mapStateToProps = (state: AppState) => {
+  const { signIn } = state;
+  return {
+    loading: signIn.loading,
+    loginStatus: signIn.success,
+  };
+};
+
+const mapDispatchToProps = (dispatch: Dispatch<AppAction>) =>
   bindActionCreators(
     {
       signIn: (values: SingInValues) => signInAction(values),
@@ -194,4 +212,4 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     dispatch,
   );
 
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
